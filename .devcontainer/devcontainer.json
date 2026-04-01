@@ -51,8 +51,8 @@
     }
   },
 
-  // Install Python dependencies after container is created
-  "postCreateCommand": "pip install -r requirements.txt",
+  // Create the udacity conda env and install root pip dependencies
+  "postCreateCommand": "conda create --name udacity python=3.8 mlflow jupyter pandas matplotlib requests -c conda-forge -y && pip install -r requirements.txt",
 
   // Forward Jupyter and MLflow tracking server ports
   "forwardPorts": [8888, 5000],
