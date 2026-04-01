@@ -51,8 +51,13 @@
     }
   },
 
-  // Create the udacity conda env and install root pip dependencies
-  "postCreateCommand": "conda create --name udacity python=3.8 mlflow jupyter pandas matplotlib requests -c conda-forge -y && pip install -r requirements.txt",
+  // Make WANDB_API_KEY available inside the container.
+  // In Codespaces it comes from the repository secret; locally it falls back to the host env var.
+  "remoteEnv": {
+    "WANDB_API_KEY": "${localEnv:WANDB_API_KEY}"
+  },
+
+  "postCreateCommand": "bash .devcontainer/setup.sh",
 
   // Forward Jupyter and MLflow tracking server ports
   "forwardPorts": [8888, 5000],
